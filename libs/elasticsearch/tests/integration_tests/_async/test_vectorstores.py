@@ -8,7 +8,7 @@ import pytest
 from elasticsearch import NotFoundError
 from langchain_core.documents import Document
 
-from langchain_elasticsearch.vectorstores import AsyncElasticsearchStore
+from langchain_elasticsearch.vectorstores import AsyncElasticsearchStore, ElasticsearchStore
 from tests.fake_embeddings import AsyncConsistentFakeEmbeddings
 
 from ._test_utilities import clear_test_indices, create_es_client, read_env
@@ -103,8 +103,9 @@ class TestElasticsearch:
         retriever = docsearch.as_retriever(
             search_type="similarity_score_threshold",
             search_kwargs={"score_threshold": similarity_of_second_ranked},
+            strategy=ElasticsearchStore.ApproxRetrievalStrategy(rrf=False)
         )
-        output = await retriever.aget_relevant_documents(query=query_string)
+        output = await retriever.ainvoke(query_string)
 
         assert output == [
             top3[0][0],
@@ -145,7 +146,7 @@ class TestElasticsearch:
             search_type="similarity_score_threshold",
             search_kwargs={"score_threshold": similarity_of_second_ranked},
         )
-        output = await retriever.aget_relevant_documents(query=query_string)
+        output = await retriever.ainvoke(query_string)
 
         assert output == [
             top3[0][0],
@@ -1081,7 +1082,7 @@ class TestElasticsearch:
             search_type="similarity_score_threshold",
             search_kwargs={"score_threshold": similarity_of_second_ranked},
         )
-        output = await retriever.aget_relevant_documents(query=query_string)
+        output = await retriever.ainvoke(query_string)
 
         assert output == [
             top3[0][0],

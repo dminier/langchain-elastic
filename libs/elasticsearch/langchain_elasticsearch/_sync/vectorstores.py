@@ -55,7 +55,7 @@ def _convert_retrieval_strategy(
             raise ValueError(
                 "ExactRetrievalStrategy requires a distance strategy to be provided."
             )
-        return DenseVectorScriptScoreStrategy(distance=DistanceMetric[distance.value])
+        return DenseVectorScriptScoreStrategy(distance=DistanceMetric[distance])
     elif isinstance(langchain_strategy, SparseRetrievalStrategy):
         return SparseVectorStrategy(langchain_strategy.model_id)
     elif isinstance(langchain_strategy, BM25RetrievalStrategy):

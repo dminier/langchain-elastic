@@ -65,7 +65,7 @@ def main(check=False):
         "aembed_documents": "embed_documents",
         "aembed_query": "embed_query",
         "_aget_relevant_documents": "_get_relevant_documents",
-        "aget_relevant_documents": "get_relevant_documents",
+        "ainvoke": "invoke",
         "alookup": "lookup",
         "aupdate": "update",
         "aclear": "clear",

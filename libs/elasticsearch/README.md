@@ -77,7 +77,7 @@ fuzzy_retriever = ElasticsearchRetriever.from_es_params(
     content_field=text_field,
 )
 
-fuzzy_retriever.get_relevant_documents("fooo")
+fuzzy_retriever.ainvoke("fooo")
 ```
 
 ### ElasticsearchEmbeddings
